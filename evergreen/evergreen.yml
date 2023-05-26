@@ -478,7 +478,7 @@ functions:
           # The aws_e2e_assume_role script requires python3 with boto3.
           cd ${DRIVERS_TOOLS}/.evergreen/auth_aws
           . ./activate-authawsvenv.sh
-          mongo aws_e2e_assume_role.js
+          python aws_tester.py assume-role
     - command: shell.exec
       type: test
       params:
