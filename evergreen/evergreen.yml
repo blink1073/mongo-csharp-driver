@@ -457,6 +457,7 @@ functions:
       type: test
       params:
         working_dir: mongo-csharp-driver
+        shell: "bash"
         script: |
           # DO NOT ECHO WITH XTRACE (which PREPARE_SHELL does)
           pushd ${DRIVERS_TOOLS}/.evergreen/auth_aws
@@ -488,6 +489,7 @@ functions:
       type: test
       params:
         working_dir: mongo-csharp-driver
+        shell: "bash"
         script: |
           # DO NOT ECHO WITH XTRACE (which PREPARE_SHELL does)
           pushd ${DRIVERS_TOOLS}/.evergreen/auth_aws
