@@ -459,7 +459,7 @@ functions:
         working_dir: mongo-csharp-driver
         script: |
           # DO NOT ECHO WITH XTRACE (which PREPARE_SHELL does)
-          cd ${DRIVERS_TOOLS}/.evergreen/auth_aws
+          pushd ${DRIVERS_TOOLS}/.evergreen/auth_aws
           . ./activate-authawsvenv.sh
           cat <<'EOF' > "${PROJECT_DIRECTORY}/prepare_mongodb_aws.sh"
             alias urlencode='python -c "import sys, urllib.parse as ulp; sys.stdout.write(ulp.quote_plus(sys.argv[1]))"'
@@ -467,6 +467,7 @@ functions:
             PASS=$(urlencode "${iam_auth_ecs_secret_access_key}")
             MONGODB_URI="mongodb://$USER:$PASS@localhost"
           EOF
+          popd
           PROJECT_DIRECTORY=${PROJECT_DIRECTORY} OS=${OS} evergreen/run-mongodb-aws-test.sh
 
   run-aws-auth-test-with-assume-role-credentials:
@@ -489,7 +490,7 @@ functions:
         working_dir: mongo-csharp-driver
         script: |
           # DO NOT ECHO WITH XTRACE (which PREPARE_SHELL does)
-          cd ${DRIVERS_TOOLS}/.evergreen/auth_aws
+          pushd ${DRIVERS_TOOLS}/.evergreen/auth_aws
           . ./activate-authawsvenv.sh
           cat <<'EOF' > "${PROJECT_DIRECTORY}/prepare_mongodb_aws.sh"
             alias urlencode='python -c "import sys, urllib.parse as ulp; sys.stdout.write(ulp.quote_plus(sys.argv[1]))"'
@@ -502,6 +503,7 @@ functions:
             SESSION_TOKEN=$(urlencode $SESSION_TOKEN)
             MONGODB_URI="mongodb://$USER:$PASS@localhost"
           EOF
+          popd
           PROJECT_DIRECTORY=${PROJECT_DIRECTORY} DRIVERS_TOOLS=${DRIVERS_TOOLS} OS=${OS} evergreen/run-mongodb-aws-test.sh
 
   run-aws-auth-test-with-aws-EC2-credentials:
